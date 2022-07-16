@@ -39,11 +39,22 @@ public class EventManager
 		}
 	}
 	
+	public void removeEventHandler(String type, Consumer<Event> eventHandler)
+	{
+		if(this.eventHandlers.get(type) != null)
+		{
+			this.eventHandlers.get(type).remove(eventHandler);
+		}
+	}
+	
 	public void dispatchEvent(Event event)
 	{
-		for(Consumer<Event> handler : eventHandlers.get(event.type))
+		if(eventHandlers.get(event.type) != null)
 		{
-			handler.accept(event);
+			for(Consumer<Event> handler : eventHandlers.get(event.type))
+			{
+				handler.accept(event);
+			}
 		}
 	}
 }

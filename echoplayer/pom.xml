@@ -6,13 +6,13 @@
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-  </properties>
+</properties>
   
   <dependencies>
   	<dependency>
   	  <groupId>app.web.aerialgamestudios</groupId>
 	  <artifactId>echoengine</artifactId>
 	  <version>0.0.1-SNAPSHOT</version>
-  	</dependency>
+	  </dependency>
   </dependencies>
 </project>
