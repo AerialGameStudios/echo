@@ -1,4 +1,4 @@
-package app.web.aerialgamestudios.echoengine;
+package app.web.aerialgamestudios.echoengine.events;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package app.web.aerialgamestudios.echoengine;
+package app.web.aerialgamestudios.echoengine.events;
 
 public class Event
 {
