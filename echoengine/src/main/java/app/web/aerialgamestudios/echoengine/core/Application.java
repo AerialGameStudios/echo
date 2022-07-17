@@ -17,6 +17,6 @@ public abstract class Application
 	public void Main()
 	{
 		Run();
-		Window window = new Window(getName(), 1920, 1080);
+		this.window = new Window(getName(), 1920, 1080);
 	}
 }

@@ -1,5 +1,6 @@
 package app.web.aerialgamestudios.echoplayer;
 
+import app.web.aerialgamestudios.echoengine.components.Camera;
 import app.web.aerialgamestudios.echoengine.core.Application;
 import app.web.aerialgamestudios.echoengine.events.Event;
 import app.web.aerialgamestudios.echoengine.events.EventManager;
@@ -17,15 +18,17 @@ public class EchoPlayer extends Application
 	private IndexBuffer ibo;
 	private Texture texture;
 	private Shader shader;
+	private Camera camera;
 	
 	private String vertexShader = "#version 330 core"
 			                +"\n"+"layout (location = 0) in vec3 aPos;"
 			                +"\n"+"layout (location = 1) in vec2 aTexCoord;"
 			                +"\n"+"out vec2 oTexCoord;"
+			                +"\n"+"uniform mat4 uProjection;"
 			                +"\n"+"void main()"
 			                +"\n"+"{"
 			                +"\n"+"  oTexCoord = aTexCoord;"
-			                +"\n"+"  gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);"
+			                +"\n"+"  gl_Position = uProjection * vec4(aPos.x, aPos.y, aPos.z, 1.0);"
 			                +"\n"+"}";
 	private String fragmentShader = "#version 330 core"
 						      +"\n"+"out vec4 FragColor;"
@@ -76,6 +79,8 @@ public class EchoPlayer extends Application
 		this.vao.Unbind();
 		this.texture.Unbind();
 		this.shader.Unbind();
+		
+		this.camera = new Camera(1920, 1080);
 	}
 	
 	private void Clear(Event ev)
@@ -89,6 +94,7 @@ public class EchoPlayer extends Application
 		this.texture.Bind();
 		this.shader.Bind();
 		this.shader.setUniformInt("uTexture", this.texture.getID());
+		this.shader.setUniformMat4("uProjection", this.camera.getProjection());
 		this.vao.Bind();
 		Renderer.Draw(indices);
 		this.vao.Unbind();

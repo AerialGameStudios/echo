@@ -5,6 +5,8 @@ import java.nio.FloatBuffer;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL45;
+import org.lwjgl.system.MemoryStack;
+import org.lwjgl.system.MemoryUtil;
 
 public class Shader
 {
@@ -76,8 +78,6 @@ public class Shader
 	
 	public void setUniformMat4(String name, Matrix4f mat)
 	{
-		FloatBuffer buf = BufferUtils.createFloatBuffer(16);
-		mat.get(buf);
-		GL45.glUniform4fv(GL45.glGetUniformLocation(this.id, name), buf);
+		GL45.glUniformMatrix4fv(GL45.glGetUniformLocation(this.id, name), false, mat.get(MemoryUtil.memAllocFloat(16)));
 	}
 }
