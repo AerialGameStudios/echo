@@ -5,7 +5,8 @@ import java.nio.IntBuffer;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
-import org.lwjgl.opengl.GL33;
+import org.lwjgl.opengl.GL45;
+import org.lwjgl.opengl.GLUtil;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.system.MemoryUtil;
 
@@ -234,6 +235,10 @@ public class Window
 		GLFW.glfwShowWindow(this.handle);
 		
 		GL.createCapabilities();
+		GL45.glEnable(GL45.GL_BLEND);
+		GL45.glBlendFunc(GL45.GL_SRC_ALPHA, GL45.GL_ONE_MINUS_SRC_ALPHA);
+		GL45.glEnable(GL45.GL_TEXTURE_2D);
+		
 		ImGui.createContext();
 		
 		EventManager.getManager().dispatchEvent(new Event(new CodeEventPayload(), "ENGINE_EV_INIT"));
@@ -252,7 +257,7 @@ public class Window
 	        lastFrame = currentFrame;
 			
 			EventManager.getManager().dispatchEvent(new Event(new CodeEventPayload(), "ENGINE_EV_PRE_CLEAR"));
-			GL33.glClear(GL33.GL_COLOR_BUFFER_BIT | GL33.GL_DEPTH_BUFFER_BIT);
+			GL45.glClear(GL45.GL_COLOR_BUFFER_BIT | GL45.GL_DEPTH_BUFFER_BIT);
 			EventManager.getManager().dispatchEvent(new Event(new CodeEventPayload(), "ENGINE_EV_POST_CLEAR"));
 			ImGuiGLFWNewFrame();
 	        ImGui.newFrame();
