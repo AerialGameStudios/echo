@@ -6,35 +6,53 @@ import app.web.aerialgamestudios.echoengine.events.EventManager;
 import app.web.aerialgamestudios.echoengine.opengl.IndexBuffer;
 import app.web.aerialgamestudios.echoengine.opengl.Renderer;
 import app.web.aerialgamestudios.echoengine.opengl.Shader;
+import app.web.aerialgamestudios.echoengine.opengl.Texture;
 import app.web.aerialgamestudios.echoengine.opengl.VertexArray;
 import app.web.aerialgamestudios.echoengine.opengl.VertexBuffer;
 
 public class EchoPlayer extends Application
 {
 	private VertexArray vao;
-	private VertexBuffer vbo;
+	private VertexBuffer vbo, tbo;
 	private IndexBuffer ibo;
+	private Texture texture;
 	private Shader shader;
 	
 	private String vertexShader = "#version 330 core"
 			                +"\n"+"layout (location = 0) in vec3 aPos;"
+			                +"\n"+"layout (location = 1) in vec2 aTexCoord;"
+			                +"\n"+"out vec2 oTexCoord;"
 			                +"\n"+"void main()"
 			                +"\n"+"{"
+			                +"\n"+"  oTexCoord = aTexCoord;"
 			                +"\n"+"  gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);"
 			                +"\n"+"}";
 	private String fragmentShader = "#version 330 core"
 						      +"\n"+"out vec4 FragColor;"
+						      +"\n"+"in vec2 oTexCoord;"
+						      +"\n"+"uniform sampler2D uTexture;"
 						      +"\n"+"void main()"
 						      +"\n"+"{"
-						      +"\n"+"  FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);"
+						      +"\n"+"  FragColor = texture(uTexture, oTexCoord);"
 						      +"\n"+"}";
-	float[] vertices = {
-		     0.5f,  0.5f, 0.0f,  // top right
-		     0.5f, -0.5f, 0.0f,  // bottom right
-		    -0.5f, -0.5f, 0.0f,  // bottom left
-		    -0.5f,  0.5f, 0.0f   // top left 
+	float[] vertices =
+	{
+		     0.5f,  0.5f, 0.0f,
+		     0.5f, -0.5f, 0.0f,
+		    -0.5f, -0.5f, 0.0f,
+		    -0.5f,  0.5f, 0.0f
 	};
-	int[] indices = {  // note that we start from 0!
+	
+	float[] texCoords = 
+	{
+		1.0f, 1.0f,
+		1.0f, 0.0f,
+		0.0f, 0.0f,
+		0.0f, 1.0f
+	};
+	
+	int[] indices =
+	{  // note that we start from 0!
 		    0, 1, 3,   // first triangle
 		    1, 2, 3    // second triangle
 	};  
@@ -45,12 +63,19 @@ public class EchoPlayer extends Application
 		this.vao.Bind();
 		this.vbo = new VertexBuffer(vertices);
 		this.ibo = new IndexBuffer(indices);
+		this.texture = new Texture("examples/image.png");
 		
 		this.vao.AddAttrib(3, 0, VertexArray.FLOAT, 0);
+		
+		this.tbo = new VertexBuffer(texCoords);
+		this.vao.AddAttrib(2, 0, VertexArray.FLOAT, 0);
 		this.shader = new Shader(vertexShader, fragmentShader);
 		
 		this.vbo.Unbind();
+		this.tbo.Unbind();
 		this.vao.Unbind();
+		this.texture.Unbind();
+		this.shader.Unbind();
 	}
 	
 	private void Clear(Event ev)
@@ -60,11 +85,15 @@ public class EchoPlayer extends Application
 	
 	private void OnRender(Event ev)
 	{
+		this.texture.EnableTextureSlot(1);
+		this.texture.Bind();
 		this.shader.Bind();
+		this.shader.setUniformInt("uTexture", this.texture.getID());
 		this.vao.Bind();
 		Renderer.Draw(indices);
 		this.vao.Unbind();
 		this.shader.Unbind();
+		this.texture.Unbind();
 	}
 
 	@Override

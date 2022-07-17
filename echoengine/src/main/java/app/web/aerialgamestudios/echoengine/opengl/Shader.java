@@ -1,5 +1,9 @@
 package app.web.aerialgamestudios.echoengine.opengl;
 
+import java.nio.FloatBuffer;
+
+import org.joml.Matrix4f;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL45;
 
 public class Shader
@@ -62,5 +66,18 @@ public class Shader
 	public void Unbind()
 	{
 		GL45.glUseProgram(0);
+	}
+	
+	// Uniform Functions
+	public void setUniformInt(String name, int value)
+	{
+		GL45.glUniform1i(GL45.glGetUniformLocation(this.id, name), value);
+	}
+	
+	public void setUniformMat4(String name, Matrix4f mat)
+	{
+		FloatBuffer buf = BufferUtils.createFloatBuffer(16);
+		mat.get(buf);
+		GL45.glUniform4fv(GL45.glGetUniformLocation(this.id, name), buf);
 	}
 }

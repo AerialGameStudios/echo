@@ -237,7 +237,6 @@ public class Window
 		GL.createCapabilities();
 		GL45.glEnable(GL45.GL_BLEND);
 		GL45.glBlendFunc(GL45.GL_SRC_ALPHA, GL45.GL_ONE_MINUS_SRC_ALPHA);
-		GL45.glEnable(GL45.GL_TEXTURE_2D);
 		
 		ImGui.createContext();
 		
