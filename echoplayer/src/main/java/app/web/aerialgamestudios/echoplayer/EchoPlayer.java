@@ -3,6 +3,7 @@ package app.web.aerialgamestudios.echoplayer;
 import org.joml.Vector2f;
 
 import app.web.aerialgamestudios.echoengine.components.Camera;
+import app.web.aerialgamestudios.echoengine.components.Transform;
 import app.web.aerialgamestudios.echoengine.core.Application;
 import app.web.aerialgamestudios.echoengine.events.Event;
 import app.web.aerialgamestudios.echoengine.events.EventManager;
@@ -21,6 +22,7 @@ public class EchoPlayer extends Application
 	private Texture texture;
 	private Shader shader;
 	private Camera camera;
+	private Transform transform;
 	
 	private String vertexShader = "#version 330 core"
 			                +"\n"+"layout (location = 0) in vec3 aPos;"
@@ -28,10 +30,11 @@ public class EchoPlayer extends Application
 			                +"\n"+"out vec2 oTexCoord;"
 			                +"\n"+"uniform mat4 uProjection;"
 			                +"\n"+"uniform mat4 uView;"
+			                +"\n"+"uniform mat4 uModel;"
 			                +"\n"+"void main()"
 			                +"\n"+"{"
 			                +"\n"+"  oTexCoord = aTexCoord;"
-			                +"\n"+"  gl_Position = uProjection * uView * vec4(aPos.x, aPos.y, aPos.z, 1.0);"
+			                +"\n"+"  gl_Position = uProjection * uView * uModel * vec4(aPos.x, aPos.y, aPos.z, 1.0);"
 			                +"\n"+"}";
 	private String fragmentShader = "#version 330 core"
 						      +"\n"+"out vec4 FragColor;"
@@ -84,6 +87,7 @@ public class EchoPlayer extends Application
 		this.shader.Unbind();
 		
 		this.camera = new Camera(1920, 1080);
+		this.transform = new Transform();
 	}
 	
 	private void Clear(Event ev)
@@ -99,6 +103,7 @@ public class EchoPlayer extends Application
 		this.shader.setUniformInt("uTexture", this.texture.getID());
 		this.shader.setUniformMat4("uProjection", this.camera.getProjection());
 		this.shader.setUniformMat4("uView", this.camera.getView());
+		this.shader.setUniformMat4("uModel", this.transform.getModel());
 		this.vao.Bind();
 		Renderer.Draw(indices);
 		this.vao.Unbind();
