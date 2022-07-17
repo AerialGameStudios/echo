@@ -78,6 +78,9 @@ public class Shader
 	
 	public void setUniformMat4(String name, Matrix4f mat)
 	{
-		GL45.glUniformMatrix4fv(GL45.glGetUniformLocation(this.id, name), false, mat.get(MemoryUtil.memAllocFloat(16)));
+		FloatBuffer buffer = MemoryUtil.memAllocFloat(16);
+		mat.get(buffer);
+		GL45.glUniformMatrix4fv(GL45.glGetUniformLocation(this.id, name), false, buffer);
+		MemoryUtil.memFree(buffer);
 	}
 }

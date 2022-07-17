@@ -1,5 +1,7 @@
 package app.web.aerialgamestudios.echoplayer;
 
+import org.joml.Vector2f;
+
 import app.web.aerialgamestudios.echoengine.components.Camera;
 import app.web.aerialgamestudios.echoengine.core.Application;
 import app.web.aerialgamestudios.echoengine.events.Event;
@@ -25,10 +27,11 @@ public class EchoPlayer extends Application
 			                +"\n"+"layout (location = 1) in vec2 aTexCoord;"
 			                +"\n"+"out vec2 oTexCoord;"
 			                +"\n"+"uniform mat4 uProjection;"
+			                +"\n"+"uniform mat4 uView;"
 			                +"\n"+"void main()"
 			                +"\n"+"{"
 			                +"\n"+"  oTexCoord = aTexCoord;"
-			                +"\n"+"  gl_Position = uProjection * vec4(aPos.x, aPos.y, aPos.z, 1.0);"
+			                +"\n"+"  gl_Position = uProjection * uView * vec4(aPos.x, aPos.y, aPos.z, 1.0);"
 			                +"\n"+"}";
 	private String fragmentShader = "#version 330 core"
 						      +"\n"+"out vec4 FragColor;"
@@ -95,6 +98,7 @@ public class EchoPlayer extends Application
 		this.shader.Bind();
 		this.shader.setUniformInt("uTexture", this.texture.getID());
 		this.shader.setUniformMat4("uProjection", this.camera.getProjection());
+		this.shader.setUniformMat4("uView", this.camera.getView());
 		this.vao.Bind();
 		Renderer.Draw(indices);
 		this.vao.Unbind();
