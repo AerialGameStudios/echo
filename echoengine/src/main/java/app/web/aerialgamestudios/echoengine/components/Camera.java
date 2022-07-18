@@ -3,6 +3,8 @@ package app.web.aerialgamestudios.echoengine.components;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
+import org.joml.Vector4f;
+import org.lwjgl.opengl.GL45;
 
 import app.web.aerialgamestudios.echoengine.events.Event;
 import app.web.aerialgamestudios.echoengine.events.EventManager;
@@ -14,6 +16,7 @@ public class Camera
 	private float zoom = 10f;
 	private Vector2f position = new Vector2f(0f, 0f);
 	private float rotation = 0f;
+	private Vector4f color;
 	
 	private float Radians(float angle)
 	{
@@ -24,6 +27,11 @@ public class Camera
 	{
 		WindowResizePayload payload = (WindowResizePayload)ev.payload;
 		Recalculate(payload.width, payload.height);
+	}
+	
+	private void Clear(Event ev)
+	{
+		GL45.glClearColor(this.color.x, this.color.y, this.color.z, this.color.w);
 	}
 	
 	public Camera(int width, int height)
@@ -41,8 +49,10 @@ public class Camera
 		this.projection.identity();
 		RecalculateView();
 		this.projection.ortho(left, right, bottom, top, 0, 100);
+		this.color = new Vector4f(0.5f, 0.9f, 1f, 1f);
 		
 		EventManager.getManager().addEventHandler("ENGINE_EV_RESIZE", this::OnResize);
+		EventManager.getManager().addEventHandler("ENGINE_EV_PRE_CLEAR", this::Clear);
 	}
 	
 	public void Recalculate(int width, int height)
@@ -111,5 +121,15 @@ public class Camera
 	{
 		this.rotation = rotation;
 		RecalculateView();
+	}
+
+	public Vector4f getColor()
+	{
+		return color;
+	}
+
+	public void setColor(Vector4f color)
+	{
+		this.color = color;
 	}
 }

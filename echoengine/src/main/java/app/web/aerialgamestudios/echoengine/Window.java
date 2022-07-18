@@ -17,9 +17,11 @@ import app.web.aerialgamestudios.echoengine.events.MouseEventPayload;
 import app.web.aerialgamestudios.echoengine.events.WindowResizePayload;
 import imgui.ImGui;
 import imgui.ImGuiIO;
+import imgui.ImGuiStyle;
 import imgui.callback.ImStrConsumer;
 import imgui.callback.ImStrSupplier;
 import imgui.flag.ImGuiBackendFlags;
+import imgui.flag.ImGuiCol;
 import imgui.flag.ImGuiConfigFlags;
 import imgui.flag.ImGuiKey;
 import imgui.flag.ImGuiMouseCursor;
@@ -36,6 +38,12 @@ public class Window
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
     private final long[] mouseCursors = new long[ImGuiMouseCursor.COUNT];
 	
+    private float[] ImVec4(float r, float g, float b, float a)
+    {
+    	float[] result = {r, g, b, a};
+    	return result;
+    }
+    
     private void initImGuiGLFW()
     {
     	final ImGuiIO io = ImGui.getIO();
@@ -154,6 +162,67 @@ public class Window
                 }
             }
         }); // After all fonts were added we don't need this config more
+        
+        ImGuiStyle style = ImGui.getStyle();
+        
+    	style.setDisplayWindowPadding(15, 15);
+    	style.setWindowRounding(5.0f);;
+    	style.setFramePadding(5, 5);;
+    	style.setFrameRounding(4.0f);;
+    	style.setItemSpacing(12, 8);
+    	style.setItemInnerSpacing(8, 6);
+    	style.setIndentSpacing(25.0f);
+    	style.setScrollbarSize(15.0f);
+    	style.setScrollbarRounding(9.0f);
+    	style.setGrabMinSize(5.0f);
+    	style.setGrabRounding(3.0f);
+    	
+    	float[][] Colors = style.getColors();
+    	Colors[ImGuiCol.Text] = ImVec4(0.80f, 0.80f, 0.83f, 1.00f);
+    	Colors[ImGuiCol.TextDisabled] = ImVec4(0.24f, 0.23f, 0.29f, 1.00f);
+    	Colors[ImGuiCol.WindowBg] = ImVec4(0.06f, 0.05f, 0.1f, 1.00f);
+    	//Colors[ImGuiCol.ChildWindowBg] = ImVec4(0.07f, 0.07f, 0.09f, 1.00f);
+    	Colors[ImGuiCol.PopupBg] = ImVec4(0.07f, 0.07f, 0.09f, 1.00f);
+    	Colors[ImGuiCol.Border] = ImVec4(0.80f, 0.80f, 0.83f, 0.88f);
+    	Colors[ImGuiCol.BorderShadow] = ImVec4(0.92f, 0.91f, 0.88f, 0.00f);
+    	Colors[ImGuiCol.FrameBg] = ImVec4(0.10f, 0.09f, 0.2f, 1.00f);
+    	Colors[ImGuiCol.FrameBgHovered] = ImVec4(0.24f, 0.23f, 0.29f, 1.00f);
+    	Colors[ImGuiCol.FrameBgActive] = ImVec4(0.56f, 0.56f, 0.58f, 1.00f);
+    	Colors[ImGuiCol.TitleBg] = ImVec4(0.10f, 0.09f, 0.2f, 1.00f);
+    	Colors[ImGuiCol.TitleBgCollapsed] = ImVec4(1.00f, 0.98f, 0.95f, 0.75f);
+    	Colors[ImGuiCol.TitleBgActive] = ImVec4(0.07f, 0.07f, 0.09f, 1.00f);
+    	Colors[ImGuiCol.MenuBarBg] = ImVec4(0.10f, 0.09f, 0.2f, 1.00f);
+    	Colors[ImGuiCol.ScrollbarBg] = ImVec4(0.10f, 0.09f, 0.2f, 1.00f);
+    	Colors[ImGuiCol.ScrollbarGrab] = ImVec4(0.80f, 0.80f, 0.83f, 0.31f);
+    	Colors[ImGuiCol.ScrollbarGrabHovered] = ImVec4(0.56f, 0.56f, 0.58f, 1.00f);
+    	Colors[ImGuiCol.ScrollbarGrabActive] = ImVec4(0.06f, 0.05f, 0.1f, 1.00f);
+    	//Colors[ImGuiCol.ComboBg] = ImVec4(0.19f, 0.18f, 0.21f, 1.00f);
+    	Colors[ImGuiCol.CheckMark] = ImVec4(0.80f, 0.80f, 0.83f, 0.31f);
+    	Colors[ImGuiCol.SliderGrab] = ImVec4(0.80f, 0.80f, 0.83f, 0.31f);
+    	Colors[ImGuiCol.SliderGrabActive] = ImVec4(0.06f, 0.05f, 0.1f, 1.00f);
+    	Colors[ImGuiCol.Button] = ImVec4(0.10f, 0.09f, 0.2f, 1.00f);
+    	Colors[ImGuiCol.ButtonHovered] = ImVec4(0.24f, 0.23f, 0.29f, 1.00f);
+    	Colors[ImGuiCol.ButtonActive] = ImVec4(0.56f, 0.56f, 0.58f, 1.00f);
+    	Colors[ImGuiCol.Header] = ImVec4(0.10f, 0.09f, 0.2f, 1.00f);
+    	Colors[ImGuiCol.HeaderHovered] = ImVec4(0.56f, 0.56f, 0.58f, 1.00f);
+    	Colors[ImGuiCol.HeaderActive] = ImVec4(0.06f, 0.05f, 0.1f, 1.00f);
+    	//Colors[ImGuiCol.Column] = ImVec4(0.56f, 0.56f, 0.58f, 1.00f);
+    	//Colors[ImGuiCol.ColumnHovered] = ImVec4(0.24f, 0.23f, 0.29f, 1.00f);
+    	//Colors[ImGuiCol.ColumnActive] = ImVec4(0.56f, 0.56f, 0.58f, 1.00f);
+    	Colors[ImGuiCol.ResizeGrip] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
+    	Colors[ImGuiCol.ResizeGripHovered] = ImVec4(0.56f, 0.56f, 0.58f, 1.00f);
+    	Colors[ImGuiCol.ResizeGripActive] = ImVec4(0.06f, 0.05f, 0.1f, 1.00f);
+    	//Colors[ImGuiCol.CloseButton] = ImVec4(0.40f, 0.39f, 0.38f, 0.16f);
+    	//Colors[ImGuiCol.CloseButtonHovered] = ImVec4(0.40f, 0.39f, 0.38f, 0.39f);
+    	//Colors[ImGuiCol.CloseButtonActive] = ImVec4(0.40f, 0.39f, 0.38f, 1.00f);
+    	Colors[ImGuiCol.PlotLines] = ImVec4(0.40f, 0.39f, 0.38f, 0.63f);
+    	Colors[ImGuiCol.PlotLinesHovered] = ImVec4(0.25f, 1.00f, 0.00f, 1.00f);
+    	Colors[ImGuiCol.PlotHistogram] = ImVec4(0.40f, 0.39f, 0.38f, 0.63f);
+    	Colors[ImGuiCol.PlotHistogramHovered] = ImVec4(0.25f, 1.00f, 0.00f, 1.00f);
+    	Colors[ImGuiCol.TextSelectedBg] = ImVec4(0.25f, 1.00f, 0.00f, 0.43f);
+    	//Colors[ImGuiCol.ModalWindowDarkening] = ImVec4(1.00f, 0.98f, 0.95f, 0.73f);
+    	
+    	style.setColors(Colors);
     }
     
     private void ImGuiGLFWNewFrame()

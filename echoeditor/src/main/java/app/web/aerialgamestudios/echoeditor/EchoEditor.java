@@ -1,4 +1,4 @@
-package app.web.aerialgamestudios.echoplayer;
+package app.web.aerialgamestudios.echoeditor;
 
 import app.web.aerialgamestudios.echoengine.components.SpriteRenderer;
 import app.web.aerialgamestudios.echoengine.core.Application;
@@ -6,9 +6,8 @@ import app.web.aerialgamestudios.echoengine.ecs.Entity;
 import app.web.aerialgamestudios.echoengine.ecs.Scene;
 import app.web.aerialgamestudios.echoengine.events.Event;
 import app.web.aerialgamestudios.echoengine.events.EventManager;
-import imgui.ImGui;
 
-public class EchoPlayer extends Application
+public class EchoEditor extends Application
 {
 	private Scene mainScene;
 	private Entity entity;
@@ -24,7 +23,7 @@ public class EchoPlayer extends Application
 	private void OnRender(Event ev)
 	{
 	}
-
+	
 	@Override
 	public void Run()
 	{
@@ -35,7 +34,6 @@ public class EchoPlayer extends Application
 	@Override
 	public String getName()
 	{
-		return "EchoPlayer";
+		return "EchoEditor";
 	}
-
 }
