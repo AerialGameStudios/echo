@@ -6,7 +6,6 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL45;
-import org.lwjgl.opengl.GLUtil;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.system.MemoryUtil;
 
@@ -16,8 +15,6 @@ import app.web.aerialgamestudios.echoengine.events.EventManager;
 import app.web.aerialgamestudios.echoengine.events.KeyboardEventPayload;
 import app.web.aerialgamestudios.echoengine.events.MouseEventPayload;
 import app.web.aerialgamestudios.echoengine.events.WindowResizePayload;
-import imgui.ImFontAtlas;
-import imgui.ImFontConfig;
 import imgui.ImGui;
 import imgui.ImGuiIO;
 import imgui.callback.ImStrConsumer;
@@ -27,7 +24,6 @@ import imgui.flag.ImGuiConfigFlags;
 import imgui.flag.ImGuiKey;
 import imgui.flag.ImGuiMouseCursor;
 import imgui.gl3.ImGuiImplGl3;
-import imgui.glfw.ImGuiImplGlfw;
 
 public class Window
 {

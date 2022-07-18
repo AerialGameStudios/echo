@@ -5,7 +5,7 @@ import java.nio.IntBuffer;
 
 import org.lwjgl.opengl.GL45;
 import org.lwjgl.stb.STBImage;
-import org.lwjgl.system.MemoryStack;
+import org.lwjgl.system.MemoryUtil;
 
 public class Texture
 {
@@ -25,10 +25,9 @@ public class Texture
 	    
 	    STBImage.stbi_set_flip_vertically_on_load(true);
 	    
-	    MemoryStack stack = MemoryStack.stackPush();
-	    IntBuffer widthBuf = stack.mallocInt(1);
-	    IntBuffer heightBuf = stack.mallocInt(1);
-	    IntBuffer channelsBuf = stack.mallocInt(1);
+	    IntBuffer widthBuf = MemoryUtil.memAllocInt(1);
+	    IntBuffer heightBuf = MemoryUtil.memAllocInt(1);
+	    IntBuffer channelsBuf = MemoryUtil.memAllocInt(1);
 	    
 	    this.image = STBImage.stbi_load(path, widthBuf, heightBuf, channelsBuf, 0);
 	    
@@ -44,6 +43,9 @@ public class Texture
 	    	}
 	    	GL45.glGenerateMipmap(GL45.GL_TEXTURE_2D);
 	    	STBImage.stbi_image_free(this.image);
+	    	MemoryUtil.memFree(widthBuf);
+	    	MemoryUtil.memFree(heightBuf);
+	    	MemoryUtil.memFree(channelsBuf);
 	    }
 	    else
 	    {

@@ -1,21 +1,12 @@
 package app.web.aerialgamestudios.echoplayer;
 
-import org.joml.Vector2f;
-
-import app.web.aerialgamestudios.echoengine.components.Camera;
 import app.web.aerialgamestudios.echoengine.components.SpriteRenderer;
-import app.web.aerialgamestudios.echoengine.components.Transform;
 import app.web.aerialgamestudios.echoengine.core.Application;
 import app.web.aerialgamestudios.echoengine.ecs.Entity;
 import app.web.aerialgamestudios.echoengine.ecs.Scene;
 import app.web.aerialgamestudios.echoengine.events.Event;
 import app.web.aerialgamestudios.echoengine.events.EventManager;
-import app.web.aerialgamestudios.echoengine.opengl.IndexBuffer;
 import app.web.aerialgamestudios.echoengine.opengl.Renderer;
-import app.web.aerialgamestudios.echoengine.opengl.Shader;
-import app.web.aerialgamestudios.echoengine.opengl.Texture;
-import app.web.aerialgamestudios.echoengine.opengl.VertexArray;
-import app.web.aerialgamestudios.echoengine.opengl.VertexBuffer;
 
 public class EchoPlayer extends Application
 {

@@ -4,7 +4,6 @@ import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
-import app.web.aerialgamestudios.echoengine.Window;
 import app.web.aerialgamestudios.echoengine.events.Event;
 import app.web.aerialgamestudios.echoengine.events.EventManager;
 import app.web.aerialgamestudios.echoengine.events.WindowResizePayload;

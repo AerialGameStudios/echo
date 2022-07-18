@@ -3,14 +3,13 @@ package app.web.aerialgamestudios.echoengine.opengl;
 import java.nio.FloatBuffer;
 
 import org.joml.Matrix4f;
-import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL45;
-import org.lwjgl.system.MemoryStack;
 import org.lwjgl.system.MemoryUtil;
 
 public class Shader
 {
 	private int id;
+	private FloatBuffer mat4Buffer;
 
 	public Shader(String vertex, String fragment)
 	{
@@ -58,6 +57,7 @@ public class Shader
 		
 		GL45.glDeleteShader(vertexId);
 		GL45.glDeleteShader(fragmentId);
+		this.mat4Buffer = MemoryUtil.memAllocFloat(16);
 	}
 	
 	public void Bind()
@@ -78,9 +78,7 @@ public class Shader
 	
 	public void setUniformMat4(String name, Matrix4f mat)
 	{
-		FloatBuffer buffer = MemoryUtil.memAllocFloat(16);
-		mat.get(buffer);
-		GL45.glUniformMatrix4fv(GL45.glGetUniformLocation(this.id, name), false, buffer);
-		MemoryUtil.memFree(buffer);
+		mat.get(this.mat4Buffer);
+		GL45.glUniformMatrix4fv(GL45.glGetUniformLocation(this.id, name), false, this.mat4Buffer);
 	}
 }

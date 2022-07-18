@@ -5,7 +5,6 @@ import java.util.List;
 
 import app.web.aerialgamestudios.echoengine.ecs.Component;
 import app.web.aerialgamestudios.echoengine.events.Event;
-import app.web.aerialgamestudios.echoengine.events.EventManager;
 import app.web.aerialgamestudios.echoengine.opengl.IndexBuffer;
 import app.web.aerialgamestudios.echoengine.opengl.Renderer;
 import app.web.aerialgamestudios.echoengine.opengl.Shader;
@@ -17,6 +16,7 @@ public class SpriteRenderer extends Component
 {
 	private VertexArray vao;
 	private VertexBuffer vbo, tbo;
+	@SuppressWarnings("unused")
 	private IndexBuffer ibo;
 	private Texture texture;
 	private Shader shader;
