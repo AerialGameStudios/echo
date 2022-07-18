@@ -8,15 +8,17 @@ import app.web.aerialgamestudios.echoengine.components.Transform;
 public class Entity
 {
 	private Entity parent;
+	private Scene scene;
 	private List<Entity> children;
 	private List<Component> components;
 	private Transform transform;
 	private String name;
 	private boolean enabled;
 	
-	public Entity(String name)
+	public Entity(String name, Scene scene)
 	{
 		this.name = name;
+		this.scene = scene;
 		this.children = new ArrayList<Entity>();
 		this.components = new ArrayList<Component>();
 		this.transform = new Transform();
@@ -26,11 +28,13 @@ public class Entity
 	public void AddComponent(Component c)
 	{
 		this.components.add(c);
+		c.setParent(this);
 	}
 	
 	public void RemoveComponent(Component c)
 	{
 		this.components.remove(c);
+		c.setParent(null);
 	}
 	
 	public List<Component> GetComponents(String name)
@@ -93,5 +97,10 @@ public class Entity
 	public String getName()
 	{
 		return name;
+	}
+	
+	public Scene getScene()
+	{
+		return this.scene;
 	}
 }

@@ -18,6 +18,7 @@ public abstract class Component
 	public abstract List<String> getProperties();
 	public abstract String getName();
 	public abstract Object getProperty(String name);
+	public abstract void setProperty(String name, Object value);
 	public void addEventHandler(String type, Consumer<Event> handler)
 	{
 		this.eventHandlers.add(handler);
