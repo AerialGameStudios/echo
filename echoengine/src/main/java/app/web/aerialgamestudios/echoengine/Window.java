@@ -227,7 +227,7 @@ public class Window
     	style.setColors(Colors);
     	
     	ImFontAtlas atlas = io.getFonts();
-    	atlas.addFontFromFileTTF("fonts/Roboto-Medium.ttf", 32);
+    	atlas.addFontFromFileTTF("fonts/Roboto-Medium.ttf", 14);
     	atlas.build();
     }
     
@@ -314,8 +314,8 @@ public class Window
 		EventManager.getManager().dispatchEvent(new Event(new CodeEventPayload(), "ENGINE_EV_INIT"));
 		
         //imGuiGlfw.init(handle, true);
-        imGuiGl3.init("#version 330");
         initImGuiGLFW();
+        imGuiGl3.init("#version 330");
         
         currentFrame = GLFW.glfwGetTime();
         lastFrame = currentFrame;
