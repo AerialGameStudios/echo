@@ -23,6 +23,7 @@ public class EchoPlayer extends Application
 	
 	private void OnRender(Event ev)
 	{
+		ImGui.showDemoWindow();
 	}
 
 	@Override

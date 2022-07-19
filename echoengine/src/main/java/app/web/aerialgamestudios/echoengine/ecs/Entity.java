@@ -9,7 +9,6 @@ public class Entity
 {
 	private Entity parent;
 	private Scene scene;
-	private List<Entity> children;
 	private List<Component> components;
 	private Transform transform;
 	private String name;
@@ -19,7 +18,6 @@ public class Entity
 	{
 		this.name = name;
 		this.scene = scene;
-		this.children = new ArrayList<Entity>();
 		this.components = new ArrayList<Component>();
 		this.transform = new Transform();
 		this.enabled = false;
@@ -58,11 +56,6 @@ public class Entity
 		{
 			i.enable();
 		}
-		
-		for(Entity j : this.children)
-		{
-			j.enable();
-		}
 	}
 	
 	public void disable()
@@ -71,11 +64,6 @@ public class Entity
 		for(Component i : this.components)
 		{
 			i.disable();
-		}
-		
-		for(Entity j : this.children)
-		{
-			j.disable();
 		}
 	}
 	

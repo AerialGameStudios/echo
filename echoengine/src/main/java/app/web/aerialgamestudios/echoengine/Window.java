@@ -15,6 +15,7 @@ import app.web.aerialgamestudios.echoengine.events.EventManager;
 import app.web.aerialgamestudios.echoengine.events.KeyboardEventPayload;
 import app.web.aerialgamestudios.echoengine.events.MouseEventPayload;
 import app.web.aerialgamestudios.echoengine.events.WindowResizePayload;
+import imgui.ImFontAtlas;
 import imgui.ImGui;
 import imgui.ImGuiIO;
 import imgui.ImGuiStyle;
@@ -26,6 +27,7 @@ import imgui.flag.ImGuiConfigFlags;
 import imgui.flag.ImGuiKey;
 import imgui.flag.ImGuiMouseCursor;
 import imgui.gl3.ImGuiImplGl3;
+import imgui.type.ImInt;
 
 public class Window
 {
@@ -223,6 +225,10 @@ public class Window
     	//Colors[ImGuiCol.ModalWindowDarkening] = ImVec4(1.00f, 0.98f, 0.95f, 0.73f);
     	
     	style.setColors(Colors);
+    	
+    	ImFontAtlas atlas = io.getFonts();
+    	atlas.addFontFromFileTTF("fonts/Roboto-Medium.ttf", 32);
+    	atlas.build();
     }
     
     private void ImGuiGLFWNewFrame()
