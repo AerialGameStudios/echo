@@ -36,6 +36,7 @@ public class Window
 	private String title;
 	private int width, height;
 	private double currentFrame, deltaTime, lastFrame;
+	public static Window instance;
     //private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
     private final long[] mouseCursors = new long[ImGuiMouseCursor.COUNT];
@@ -319,6 +320,7 @@ public class Window
         
         currentFrame = GLFW.glfwGetTime();
         lastFrame = currentFrame;
+        instance = this;
 		
 		while (!GLFW.glfwWindowShouldClose(this.handle))
 		{
@@ -326,6 +328,7 @@ public class Window
 	        deltaTime = currentFrame - lastFrame;
 	        lastFrame = currentFrame;
 			
+	        EventManager.getManager().dispatchEvent(new Event(new CodeEventPayload(), "ENGINE_EV_PREP_RENDER"));
 			EventManager.getManager().dispatchEvent(new Event(new CodeEventPayload(), "ENGINE_EV_PRE_CLEAR"));
 			GL45.glClear(GL45.GL_COLOR_BUFFER_BIT | GL45.GL_DEPTH_BUFFER_BIT);
 			EventManager.getManager().dispatchEvent(new Event(new CodeEventPayload(), "ENGINE_EV_POST_CLEAR"));
@@ -344,6 +347,7 @@ public class Window
 	            GLFW.glfwMakeContextCurrent(backupWindowPtr);
 	        }
 	        
+	        EventManager.getManager().dispatchEvent(new Event(new CodeEventPayload(), "ENGINE_EV_BEFORE_SWAP"));
 			GLFW.glfwSwapBuffers(this.handle);
 			EventManager.getManager().dispatchEvent(new Event(new CodeEventPayload(), "ENGINE_EV_SWAP"));
 			GLFW.glfwPollEvents();
